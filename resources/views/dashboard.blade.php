@@ -55,7 +55,7 @@
 	    <div class="col-md-12">
 	      <div class="box box-success">
 		      <div class="box-header with-border">
-		        <h3 class="box-title"><i class="fa fa-user-circle"></i> Productores</h3>
+		        <h3 class="box-title"><i class="fa fa-id-card-o "></i> Productores</h3>
 		        <span class="pull-right">
 		        	<a href="{{route('productores.create')}}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo productor</a>
 						</span>

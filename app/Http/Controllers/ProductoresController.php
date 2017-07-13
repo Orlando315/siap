@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use App\Tecnico;
 use App\Productor;
 
 class ProductoresController extends Controller
@@ -25,8 +26,8 @@ class ProductoresController extends Controller
      */
     public function create()
     {
-      $productor = new Productor;
-      return view("productores.create", ["productor" => $productor]);
+    	$tecnicos = Tecnico::all();
+      return view("productores.create", ["tecnicos" => $tecnicos]);
     }
 
     /**
@@ -38,18 +39,21 @@ class ProductoresController extends Controller
     public function store(Request $request)
     {
     	$this->validate($request,[
-    		"nombres"      => "required",
-    		"apellidos"    => "required_if:tipo,V",
-        "tipo"         => "required",
-        "identificacion"    => "required|numeric|unique:productores",
-    		"email"        => "required|email|unique:productores",
-    		"tlf_personal" => "required|numeric",
-        "tlf_oficina"    => "nullable|numeric",
-        "tlf_administracion" => "nullable|numeric",
+    		'tecnico'         => 'required',
+    		'nombres'        => 'required',
+    		'apellidos'      => 'required_if:tipo,V',
+        'tipo'           => 'required',
+        'identificacion' => 'required|numeric|unique:productores',
+    		'email'          => 'required|email|unique:productores',
+    		'estado'         => 'required',
+    		'tlf_personal'   => 'required|numeric',
+        'tlf_oficina'    => 'nullable|numeric',
+        'tlf_administracion' => 'nullable|numeric',
     	]);
 
     	$productor = new Productor;
       $productor->fill($request->all());
+      $productor->tecnico_id = $request->input('tecnico');
 
     	if($productor->save()){
       	return redirect("productores")->with([
@@ -88,7 +92,8 @@ class ProductoresController extends Controller
     public function edit($id)
     {
       $productor = Productor::findOrFail($id);
-      return view("productores.edit", ["productor" => $productor]);
+      $tecnicos  = Tecnico::all();
+      return view("productores.edit", ["productor" => $productor,'tecnicos'=>$tecnicos]);
     }
 
     /**
@@ -103,23 +108,26 @@ class ProductoresController extends Controller
         $productor = Productor::findOrFail($id);
 
         $this->validate($request, [
-        "nombres"        => "required",
-    		"apellidos"      => "required_if:tipo,V",
-        "tipo"           => "required",
-        "identificacion" => "required|numeric|unique:productores,identificacion,".$id.",id",
-        "email"          => "required|email|unique:productores,email,".$id.",id",
-        "tlf_personal"   => "required|numeric",
-        "tlf_oficina"    => "nullable|numeric",
-        "tlf_administracion" => "nullable|numeric",
+	        "tecnico"        => "required",
+	        "nombres"        => "required",
+	    		"apellidos"      => "required_if:tipo,V",
+	        "tipo"           => "required",
+	        "identificacion" => "required|numeric|unique:productores,identificacion,".$id.",id",
+	        "email"          => "required|email|unique:productores,email,".$id.",id",
+	        "estado"         => "required",
+	        "tlf_personal"   => "required|numeric",
+	        "tlf_oficina"    => "nullable|numeric",
+	        "tlf_administracion" => "nullable|numeric",
         ]);
 
         $productor->fill($request->all());
+      	$productor->tecnico_id = $request->input('tecnico');
 
         if($productor->save()){
           return redirect("productores/")->with([
-              "flash_message" => "Productor editado correctamente.",
-              "flash_class"   => "alert-success"
-            ]);
+            "flash_message" => "Productor editado correctamente.",
+            "flash_class"   => "alert-success"
+          ]);
         }else{
           return redirect("productores/")->with([
             "flash_message"   => "Ha ocurrido un error.",

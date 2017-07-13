@@ -30,6 +30,7 @@
 	      <div class="box-header with-border">
 	        <h3 class="box-title"><i class="fa fa-building"></i> Organizaciones</h3>
 	        <span class="pull-right">
+						<a href="{{ route('reportes.organizaciones') }}" class="btn btn-flat btn-default"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 						<a href="{{ route('organizaciones.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nueva organizacion</a>
 					</span>
 	      </div>

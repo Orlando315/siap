@@ -16,6 +16,7 @@
 	    <a class="btn btn-flat btn-primary" href="{{ url('ciclos/add/'.$ciclo->id) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar unidad</a>
 	    <button class="btn btn-flat btn-warning" data-toggle="modal" data-target="#closeModal"><i class="fa fa-calendar-times-o" aria-hidden="true"></i> Cerrar ciclo</button>
 	    @endif
+	    <a class="btn btn-flat btn-default" href="{{ route('reportes.ciclo',['id'=>$ciclo->id])}}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    -->

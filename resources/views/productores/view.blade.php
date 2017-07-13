@@ -13,6 +13,7 @@
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('productores.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('productores/'.$productor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-default" href="{{ route('reportes.productor',['id'=>$productor->id]) }}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    -->
@@ -27,7 +28,7 @@
             <div class="box-body box-profile">
               <h3 class="profile-username text-center">{{$productor->nombres." ".$productor->apellidos}}</h3>
 
-              <p class="text-muted text-center"></p>
+              <p class="text-muted text-center">Productor</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -40,13 +41,16 @@
                   <b>Contacto</b> <span class="pull-right">{{$productor->contacto?$productor->contacto:'N/A'}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Telefono pesonal</b> <span class="pull-right">{{$productor->tlf_personal}}</span>
+                  <b>Telefono pesonal</b> <span class="pull-right">{{$productor->tlf_personal?$productor->tlf_personal:'N/A'}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Oficina</b> <span class="pull-right">{{$productor->tlf_oficina}}</span>
+                  <b>Oficina</b> <span class="pull-right">{{$productor->tlf_oficina?$productor->tlf_oficina:'N/A'}}</span>
                 </li>
                 <li class="list-group-item">
-                  <b>Administracion</b> <span class="pull-right">{{$productor->tlf_administracion}}</span>
+                  <b>Administracion</b> <span class="pull-right">{{$productor->tlf_administracion?$productor->tlf_administracion:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Estado</b> <span class="pull-right">{{$productor->estado}}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Direccion</b> <span class="pull-right">{{$productor->direccion?$productor->direccion:'N/A'}}</span>
@@ -55,9 +59,36 @@
             </div>
             <!-- /.box-body -->
           </div>
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <h3 class="profile-username text-center">{{$productor->tecnico->nombres." ".$productor->tecnico->apellidos}}</h3>
+
+              <p class="text-muted text-center">Tecnico <a href="{{route('tecnicos.show',[$productor->tecnico->id])}}">(ver detalles)</a></p>
+	
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Cedula/RIF</b> <span class="pull-right">{{ number_format($productor->tecnico->cedula,0,",",".") }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Email</b> <span class="pull-right">{{ $productor->tecnico->email }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Telefono pesonal</b> <span class="pull-right">{{$productor->tecnico->tlf_personal?$productor->tecnico->tlf_personal:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Opcional</b> <span class="pull-right">{{$productor->tecnico->tlf_opcional?$productor->tecnico->tlf_opcional:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Estado</b> <span class="pull-right">{{$productor->tecnico->estado}}</span>
+                </li>
+              </ul>
+            </div>
+            <!-- /.box-body -->
+          </div>
         </div>
         <div class="col-md-9">
-        	<div class="box box-danger">
+        	<div class="box box-success">
 			      <div class="box-header with-border">
 			        <h3 class="box-title"><i class="fa fa-map-o"></i> Unidades de produccion</h3>
 			        <span class="pull-right">

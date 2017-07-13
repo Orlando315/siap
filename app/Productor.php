@@ -15,17 +15,25 @@ class Productor extends Model
    * @var array
    */
   protected $fillable = [
+  		'organizacion_id',
+  		'tecnico_id',
       'nombres',
       'apellidos',
       'tipo',
       'identificacion',
       'email',
+      'estado',
       'tlf_personal',
       'tlf_oficina',
       'tlf_administracion',
       'direccion',
       'contacto'
   ];
+
+  public function tecnico()
+  {
+  	return $this->belongsTo('App\Tecnico','tecnico_id');
+  }
 
   public function unidades()
   {

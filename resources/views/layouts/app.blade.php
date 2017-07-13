@@ -26,11 +26,6 @@
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
     
 	  <style type="text/css">
-	    .view-subtitle{
-	      color: #d22a2a;
-	      font-weight: 600;
-	      font-size: 17px;
-	    }
 	    .perfil{
 			  position: relative;
 			  background: #fff;
@@ -69,6 +64,10 @@
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
               <!-- Messages: style can be found in dropdown.less-->
+
+              <li>
+              	<a href="{{ route('ciclos.search') }}"><i class="fa fa-search-plus" aria-hidden="true"></i> Busqueda</a>
+              </li>
               
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
@@ -143,9 +142,21 @@
               </ul>
             </li>
 
-             <li class="treeview">
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-user-circle"></i>
+                <span>Tecnicos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{ route('tecnicos.index') }}"><i class="fa fa-circle-o"></i>Ver tecnicos</a></li>
+                <li><a href="{{ route('tecnicos.create') }}"><i class="fa fa-circle-o"></i>Agregar tecnico</a></li>
+              </ul>
+            </li>
+
+             <li class="treeview">
+              <a href="#">
+                <i class="fa fa-id-card-o "></i>
                 <span>Productores</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>

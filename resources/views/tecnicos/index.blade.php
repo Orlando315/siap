@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@section('title','Productores - '.config('app.name'))
-@section('header','Productores')
+@section('title','Tecnicos - '.config('app.name'))
+@section('header','Tecnicos')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('index')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li class="active"> Productores </li>
+	  <li class="active"> Tecnicos </li>
 	</ol>
 @endsection
 @section('content')
@@ -14,11 +14,11 @@
 		<div class="col-md-3 col-sm-6 col-xs-12">
       <div class="small-box bg-purple">
         <div class="inner">
-          <h3>{{ count($productores) }}</h3>
-          <p>productores</p>
+          <h3>{{ count($tecnicos) }}</h3>
+          <p>tecnicos</p>
         </div>
         <div class="icon">
-          <i class="fa fa-id-card-o "></i>
+          <i class="fa fa-user-circle"></i>
         </div>
       </div>
     </div>
@@ -28,10 +28,10 @@
   	<div class="col-md-12">
     	<div class="box box-purple">
 	      <div class="box-header with-border">
-	        <h3 class="box-title"><i class="fa fa-id-card-o "></i> Productores</h3>
+	        <h3 class="box-title"><i class="fa fa-user-circle"></i> Tecnicos</h3>
 	        <span class="pull-right">
-	        	<a href="{{ route('reportes.productores') }}" class="btn btn-flat btn-default"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
-						<a href="{{ route('productores.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo productor</a>
+	        	<a href="{{ route('reportes.tecnicos') }}" class="btn btn-flat btn-default"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+						<a href="{{ route('tecnicos.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo tecnico</a>
 					</span>
 	      </div>
       	<div class="box-body">
@@ -48,17 +48,17 @@
 							</tr>
 						</thead>
 						<tbody class="text-center">
-							@foreach($productores as $d)
+							@foreach($tecnicos as $d)
 								<tr>
 									<td>{{$loop->index+1}}</td>
-									<td>{{$d->tipo."-".number_format($d->identificacion,0,",",".")}}</td>
+									<td>{{number_format($d->cedula,0,",",".")}}</td>
 									<td>{{$d->nombres}}</td>
 									<td>{{$d->apellidos}}</td>
 									<td>{{$d->email}}</td>
 									<td>{{$d->tlf_personal}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('productores.index').'/'.$d->id }}"><i class="fa fa-search"></i></a>
-										<a href="{{ url('productores/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('tecnicos.index').'/'.$d->id }}"><i class="fa fa-search"></i></a>
+										<a href="{{ url('tecnicos/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 							@endforeach

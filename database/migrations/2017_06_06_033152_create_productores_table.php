@@ -17,6 +17,8 @@ class CreateProductoresTable extends Migration
             $table->increments('id');
             $table->integer('organizacion_id')->unsigned()->nullable();
             $table->foreign('organizacion_id')->references('id')->on('organizaciones');
+            $table->integer('tecnico_id')->unsigned()->nullable();
+            $table->foreign('tecnico_id')->references('id')->on('tecnicos');
             $table->string('nombres');
             $table->string('apellidos')->nullable();
             $table->string('tipo');
@@ -40,7 +42,6 @@ class CreateProductoresTable extends Migration
      */
     public function down()
     {
-        //
     	Schema::dropIfExists('productores');
     }
 }

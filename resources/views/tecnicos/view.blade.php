@@ -1,19 +1,19 @@
 @extends('layouts.app')
-@section('title','Organizacion - '.config('app.name'))
-@section('header','Organizacion')
+@section('title','Tenicos - '.config('app.name'))
+@section('header','Tecnicos')
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('index')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
-	  <li> <a href="{{route('organizaciones.index')}}">Organizaciones </a> </li>
+	  <li> <a href="{{route('tecnicos.index')}}">Tecnicos </a> </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
 @section('content')
 <!-- Formulario -->
 		<section>
-	    <a class="btn btn-flat btn-default" href="{{ route('organizaciones.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('organizaciones/'.$organizacion->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
-	    <a class="btn btn-flat btn-default" href="{{ route('reportes.organizacion',['id'=>$organizacion->id])}}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+	    <a class="btn btn-flat btn-default" href="{{ route('tecnicos.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    <a class="btn btn-flat btn-success" href="{{ url('tecnicos/'.$tecnico->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-default" href="{{ route('reportes.tecnico',['id'=>$tecnico->id]) }}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    -->
@@ -26,13 +26,25 @@
           <!-- Profile Image -->
           <div class="box box-danger">
             <div class="box-body box-profile">
-              <h3 class="profile-username text-center">{{$organizacion->organizacion}}</h3>
+              <h3 class="profile-username text-center">{{$tecnico->nombres." ".$tecnico->apellidos}}</h3>
 
-              <p class="text-muted text-center">Registrada {{$organizacion->created_at}}</p>
+              <p class="text-muted text-center"></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Productores</b> <span class="pull-right">{{ $organizacion->productores_qty() }}</span>
+                  <b>Cedula/RIF</b> <span class="pull-right">{{ number_format($tecnico->cedula,0,",",".") }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Email</b> <span class="pull-right">{{ $tecnico->email }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Telefono pesonal</b> <span class="pull-right">{{$tecnico->tlf_personal?$tecnico->tlf_personal:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Opcional</b> <span class="pull-right">{{$tecnico->tlf_opcional?$tecnico->tlf_opcional:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Estado</b> <span class="pull-right">{{$tecnico->estado}}</span>
                 </li>
               </ul>
             </div>
@@ -42,9 +54,9 @@
         <div class="col-md-9">
         	<div class="box box-danger">
 			      <div class="box-header with-border">
-			        <h3 class="box-title"><i class="fa fa-users-circle"></i> Productores</h3>
+			        <h3 class="box-title"><i class="fa fa-id-card-o "></i> Productores</h3>
 			        <span class="pull-right">
-			        	<a class="btn btn-flat btn-success" href="{{route('productores.create').'/'.$organizacion->id}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Productor</a>
+			        	<a class="btn btn-flat btn-success" href="{{route('tecnicos.add',['id'=>$tecnico->id])}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Tecnico</a>
 			        </span>
 			      </div>
 		      	<div class="box-body">
@@ -61,7 +73,7 @@
 									</tr>
 								</thead>
 								<tbody class="text-center">
-									@foreach($organizacion->productores() as $d)
+									@foreach($productores as $d)
 										<tr>
 											<td>{{$loop->index+1}}</td>
 											<td>{{$d->tipo."-".number_format($d->identificacion,0,",",".")}}</td>
@@ -89,7 +101,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="delModalLabel">Eliminar organizacion</h4>
+          <h4 class="modal-title" id="delModalLabel">Eliminar tecnico</h4>
         </div>
         <div class="modal-body">
           <div class="row">

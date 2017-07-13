@@ -23,6 +23,10 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('perfil','UsersController@perfil')->name('perfil');
 	Route::patch('perfil','UsersController@update_perfil')->name('update_perfil');
 	Route::resource('/users','UsersController');
+	//Tecnicos
+	Route::get('/tecnicos/add/{id}','TecnicosController@add')->name('tecnicos.add');
+	Route::resource('/tecnicos','TecnicosController');
+
 	//Productores
 	Route::resource('/productores','ProductoresController');
 	//Bitacora
@@ -44,4 +48,17 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::patch('/actividad','ActividadesController@avanzar')->name('actividad.avanzar');
 	//Organizaciones
 	Route::resource('/organizaciones','OrganizacionesController');
+
+	//Reportes
+	Route::get('/reportes/tecnicos','ReportesController@tecnicos')->name('reportes.tecnicos');
+	Route::get('/reportes/tecnicos/{id}','ReportesController@tecnico')->name('reportes.tecnico');
+	Route::get('/reportes/productores','ReportesController@productores')->name('reportes.productores');
+	Route::get('/reportes/productores/{id}','ReportesController@productor')->name('reportes.productor');
+	Route::post('/reportes/ciclo','ReportesController@custom')->name('reportes.customCiclo');
+	Route::get('/reportes/ciclo/{id}','ReportesController@ciclo')->name('reportes.ciclo');
+	Route::get('/reportes/organizaciones','ReportesController@organizaciones')->name('reportes.organizaciones');
+	Route::get('/reportes/organizacion/{id}','ReportesController@organizacion')->name('reportes.organizacion');
+
+	//TESTER
+	Route::get('/test','CiclosController@test');
 });

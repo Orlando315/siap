@@ -64,23 +64,23 @@
 
 					@if (count($errors) > 0)
 					<div class="col-md-12">
-					<div class="col-md-4 col-md-offset-4">
-          <div class="alert alert-danger">
-	          <ul>
-	            @foreach($errors->all() as $error)
-	               <li>{{$error}}</li>
-	             @endforeach
-	           </ul>  
-          </div>
-          </div>
+						<div class="col-md-4 col-md-offset-4">
+          		<div class="alert alert-danger">
+	          		<ul>
+			            @foreach($errors->all() as $error)
+			              <li>{{$error}}</li>
+			            @endforeach
+	          		</ul>  
+          		</div>
+          	</div>
           </div>
         	@endif
 
 				  <div class="col-md-4 col-md-offset-4">
-				     <button type="submit" id="send" class="btn btn-flat btn-success">Actualizar</button>
+				    <button type="submit" id="send" class="btn btn-flat btn-success">Actualizar</button>
 				  </div>
 			  </form>
-            </div>
+      </div>
 		</div>
 	</section>
 </div>
@@ -92,28 +92,12 @@
  			$("#pp").click(function(event) {
 	 		var bool = this.checked;
 	 		if(bool === true){
-	 			$("#pass").show('fast');
-	 			$("#pass_new,pass_rep").prop('required',true);
+	 			$("#pass").show();
+	 			$("#pass_new,#pass_rep").prop('required',true);
 	 		}else{
-	 			$("#pass").hide('fast');
-	 			$("#pass_new,pass_rep").prop('required',false).val('');
+	 			$("#pass").hide();
+	 			$("#pass_new,#pass_rep").prop('required',false).val('');
 	 		}
-	 	});
-
-		$("#send").click(function(event) {
-			event.preventDefault();
-			var form  = $('#editar');
-			var pass1 = $("#pass_new").val();
-			var pass2 = $("#pass_rep").val();
-			var message = $("#message");
-			if(pass1 === pass2){
-				form.submit();
-			}else{
-				$("#pass_new").css('border','solid 1px red');
-				$("#pass_rep").css('border','solid 1px red');
-				message.fadeIn('slow/400/fast');
-				message.fadeOut(3000);				
-			}
 	 	});
  	});
  	</script>

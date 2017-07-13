@@ -75,7 +75,7 @@ class CiclosController extends Controller
     {
     	$ciclo = Ciclo::findOrFail($id);
     	$productores = $ciclo->productores();
-    	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores]);
+    	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false]);
     }
 
     /**
@@ -223,19 +223,33 @@ class CiclosController extends Controller
 	    	$productores = $ciclo->selectProductores($request->input('productores'),$request->input('organizacion'));
 	    	return view('partials.box_productores',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>$resumen]);
 	    }else{
-	    	$p = array('organizaciones'=>array(),'productores'=>array(),'resumen'=>$resumen);
+	    	$p = array('tecnicos'=>array(),
+	    							'organizaciones'=>array(),
+	    							'estados'=>array(),
+	    							'productores'=>array(),
+	    							'resumen'=>$resumen);
+
+	    	foreach ($ciclo->tecnicos() as $tecnico){
+	    		$p['tecnicos'][] = array(
+	    												'id' => $tecnico->id,
+	    												'tecnico' => $tecnico->productor->tecnico->nombres." ".$tecnico->productor->tecnico->apellidos
+	    											);
+	    	}
 
 	    	foreach ($ciclo->organizaciones() as $organizacion){
 		    	$p['organizaciones'][] = array(
-		    												'id'=>$organizacion->productor->organizacion->id,
+		    												'id' => $organizacion->productor->organizacion->id,
 		    												'organizacion'=>$organizacion->productor->organizacion->organizacion
 		    											);
 		    }
-		    if($request->input('organizacion') > 0){
-		    	$productores = $ciclo->productores($request->input('organizacion'));
-		    }else{
-		    	$productores = $ciclo->productores();
+
+		    foreach ($ciclo->estados() as $estados){
+		    	$p['estados'][] = array(
+		    												'estado'=>$estados->productor->estado
+		    											);
 		    }
+		    
+		    $productores = $ciclo->productores($request->input('organizacion'),$request->input('estado'));
 
 		    foreach ($productores as $productor){
 		    	$p['productores'][] = array(
@@ -245,5 +259,14 @@ class CiclosController extends Controller
 		    }
 	    	return response()->json($p);
 	    }
+    }
+
+    //TESTER
+    public function test()
+    {
+    	$ciclo = Ciclo::findOrFail(1);
+    	$productores = $ciclo->estados()->toArray();
+
+    	dd($productores);
     }
 }

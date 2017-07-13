@@ -19,35 +19,45 @@ class Ciclo extends Model
   	'procesamiento'=> 0,
   	'mapa_web'=> 0,
   	'attr_web'=> 0,
-  	'null' => 0 //Indice vacio para la ultima consulta
+  	'null' => 0 //Indice vacio para la consulta Resumen
   ];
 
   //Iteraciones de unidades por productor
   public $iteraciones = 0;
 
-  public function productores($organizacion = 0)
+  public function tecnicos()
   {
-  	if($organizacion > 0){
-  		$productores = $this->hasMany('App\CicloProductor','ciclo_id')
-					  							->join('productores','ciclos_productores.productor_id','=','productores.id')
-					  							->where('productores.organizacion_id',$organizacion)
-					  							->groupBy('productor_id')
-					  							->get();
-  	}else{
-			$productores = $this->hasMany('App\CicloProductor','ciclo_id')->groupBy('productor_id')->get();
-  	}
+  	return $this->hasMany('App\CicloProductor','ciclo_id')
+  							->join('productores','ciclos_productores.productor_id','=','productores.id')
+  							->groupBy('productores.tecnico_id')
+  							->get();
+  }
+
+  public function productores($organizacion = 0, $estado = "")
+  {
+  	$org = $organizacion > 0;
+  	$est = $estado != "";
+
+		$productores = $this->hasMany('App\CicloProductor','ciclo_id')
+							  				->join('productores','ciclos_productores.productor_id','=','productores.id')
+				                ->when($org, function ($query) use ($organizacion) {
+				                   return $query->where('productores.organizacion_id',$organizacion);
+				                })
+				                ->when($est, function ($query) use ($estado) {
+				                   return $query->where('productores.estado',$estado);
+				                })
+				                ->groupBy('productor_id')
+				                ->get();
 
   	return $productores;
   }
 
   public function selectProductores($ids)
   {
-		$productores = $this->hasMany('App\CicloProductor','ciclo_id')
+		return $this->hasMany('App\CicloProductor','ciclo_id')
 												->whereIn('productor_id',$ids)
 												->groupBy('productor_id')
 												->get();
-
-  	return $productores;
   }
 
   public function organizaciones()
@@ -56,6 +66,14 @@ class Ciclo extends Model
   							->join('productores','ciclos_productores.productor_id','=','productores.id')
   							->whereNotNull('productores.organizacion_id')
   							->groupBy('productores.organizacion_id')
+  							->get();
+  }
+
+  public function estados()
+  {
+  	return $this->hasMany('App\CicloProductor','ciclo_id')
+  							->join('productores','ciclos_productores.productor_id','=','productores.id')
+  							->groupBy('productores.estado')
   							->get();
   }
 
@@ -74,23 +92,23 @@ class Ciclo extends Model
   	return $this->hasMany('App\CicloProductor','ciclo_id')->count();
   }
 
-  public function valoracion($status,$campo = 'null')
+  public function valoracion($status,$campo = 'null',$pdf = false)
   {
   	switch ($status) {
   		case 0:
   			$this->media[$campo]+=1;
-  			$label = '<span class="label label-danger">Nada</span>';
+  			$label = $pdf?'<b style="color:#DD4B39">Nada</b>':'<span class="label label-danger">Nada</span>';
   		break;
   		case 1:
   			$this->media[$campo]+=2;
-  			$label = '<span class="label label-warning">Medio</span>';
+  			$label = $pdf?'<b style="color:#F39C12">Medio</b>':'<span class="label label-warning">Medio</span>';
   		break;
   		case 2:
   			$this->media[$campo]+=3;
-  			$label = '<span class="label label-success">Completo</span>';
+  			$label = $pdf?'<b style="color:#00A65A">Completo</b>':'<span class="label label-success">Completo</span>';
   		break;
   		default:
-  			$label = '<span class="label label-default">Error</span>';
+  			$label = $pdf?'<b style="color:#ccc">Error</b>':'<span class="label label-default">Error</span>';
   		break;
   	}
   	return $label;
@@ -104,7 +122,7 @@ class Ciclo extends Model
   	}
   }
 
-  public function promedio($campo){
+  public function promedio($campo,$pdf = false){
   	$promedio = $this->media[$campo]/$this->total_iteracion;
 
   	if($promedio === 3){
@@ -115,7 +133,7 @@ class Ciclo extends Model
   		$valor = 0;
   	}
 
-  	return $this->valoracion($valor);
+  	return $this->valoracion($valor,'null',$pdf);
   }
 
   public function iteraciones($iteraciones)

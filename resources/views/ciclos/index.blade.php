@@ -30,7 +30,7 @@
 	      <div class="box-header with-border">
 	        <h3 class="box-title"><i class="fa fa-spinner"></i> Ciclos</h3>
 	        <span class="pull-right">
-	        	<a href="{{ route('ciclos.search') }}" class="btn btn-flat btn-default"><i class="fa fa-file-text-o" aria-hidden="true"></i> Reporte</a>
+	        	<a href="{{ route('ciclos.search') }}" class="btn btn-flat btn-default"><i class="fa fa-search-plus" aria-hidden="true"></i> Busqueda</a>
 						<a href="{{ route('ciclos.create') }}" class="btn btn-flat btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo ciclo</a>
 					</span>
 	      </div>

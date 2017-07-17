@@ -76,7 +76,7 @@
         </div>
 			</div>
 			<div class="row">
-				@include('partials.box_productores');
+				@include('partials.box_productores')
 			</div>
 		</section>
 
@@ -117,7 +117,6 @@
 	              <input type="hidden" name="_method" value="PATCH">
 	              <input type="hidden" name="ciclo_id" value="{{$ciclo->id}}">
 	              <input id="actividad_id" type="hidden" name="actividad_id" value="0">
-	              <input id="campo" type="hidden" name="campo" value="">
 	              <input id="opt" type="hidden" name="opt" value="">
 	              {{ csrf_field() }}
 	              <h4 class="text-center">¿Esta seguro que desea <b><span id="msj"></span></b> esta actividad?</h4><br>
@@ -141,26 +140,21 @@
 			  var campo  = button.data('campo');
 			  var id     = button.data('id');
 			  var opt    = button.data('opt');
-			  var msj    = '';
-			  if(opt>0){
-			  	msj = 'Avanzar';
-			  }else{
-			  	msj = 'Retrasar';
-			  }
-
-			  console.log(msj);
-
+			  var msj    = (opt>0)?'Avanzar':'Retrasar';
 			  var modal = $(this);
 			  modal.find('#actividad_id').val(id);
-			  modal.find('#campo').val(campo);
 			  modal.find('#actividad').text(Up(campo.replace("_",". ")));
 			  modal.find('#opt').val(opt);
 			  modal.find('#msj').text(msj);
 			});
+			 
+			$('[data-toggle="popover"]').popover({
+				html: true
+			});
 		});
 
 		function Up(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    	return string.charAt(0).toUpperCase() + string.slice(1);
 		}
 	</script>
 @endsection

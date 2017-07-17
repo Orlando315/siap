@@ -17,8 +17,8 @@ class Ciclo extends Model
   	'lab_tejido'=> 0,
   	'esp_tejido'=> 0,
   	'procesamiento'=> 0,
-  	'mapa_web'=> 0,
-  	'attr_web'=> 0,
+  	'mapa'=> 0,
+  	'attr'=> 0,
   	'null' => 0 //Indice vacio para la consulta Resumen
   ];
 
@@ -92,23 +92,39 @@ class Ciclo extends Model
   	return $this->hasMany('App\CicloProductor','ciclo_id')->count();
   }
 
-  public function valoracion($status,$campo = 'null',$pdf = false)
+  public function valoracion($status,$campo = 'null',$pdf = false,$fecha1 = NULL, $fecha2 = NULL)
   {
+  	$fecha1 = $fecha1!=""?$fecha1:"N/A";
+  	$fecha2 = $fecha2!=""?$fecha2:"N/A";
+
+  	$content = htmlentities("
+	    <ul class=\"list-group list-group-unbordered\">
+	      <li class=\"list-group-item\">
+	    		<span class=\"label label-danger\">Nada</span>&nbsp;&nbsp;<span class=\"pull-right\">-</span>
+	      </li>
+	      <li class=\"list-group-item\">
+	        <span class=\"label label-warning\">Medio</span>&nbsp;&nbsp;<span id=\"fecha1\" class=\"pull-right\">{$fecha1}</span>
+	      </li>
+	      <li class=\"list-group-item\">
+	        <span class=\"label label-success\">Completo</span>&nbsp;&nbsp;<span id=\"fecha2\" class=\"pull-right\">{$fecha2}</span>
+	      </li>
+	    </ul>");
+
   	switch ($status) {
   		case 0:
-  			$this->media[$campo]+=1;
-  			$label = $pdf?'<b style="color:#DD4B39">Nada</b>':'<span class="label label-danger">Nada</span>';
+  			$this->media[$this->limpiar($campo)]+=1;
+  			$label = $pdf?'<b style="color:#DD4B39">Nada</b>':'<a tabindex="0" class="btn btn-danger btn-flat btn-sm" data-toggle="popover" data-content="'.$content.'" data-trigger="focus" title="'.$campo.'" data-fecha1="'.$fecha1.'" data-fecha2="'.$fecha2.'">Nada</a>';
   		break;
   		case 1:
-  			$this->media[$campo]+=2;
-  			$label = $pdf?'<b style="color:#F39C12">Medio</b>':'<span class="label label-warning">Medio</span>';
+  			$this->media[$this->limpiar($campo)]+=2;
+  			$label = $pdf?'<b style="color:#F39C12">Medio</b>':'<a tabindex="0" class="btn btn-warning btn-flat btn-sm" data-toggle="popover" data-content="'.$content.'" data-trigger="focus" title="'.$campo.'" data-fecha1="'.$fecha1.'" data-fecha2="'.$fecha2.'">Medio</a>';
   		break;
   		case 2:
-  			$this->media[$campo]+=3;
-  			$label = $pdf?'<b style="color:#00A65A">Completo</b>':'<span class="label label-success">Completo</span>';
+  			$this->media[$this->limpiar($campo)]+=3;
+  			$label = $pdf?'<b style="color:#00A65A">Completo</b>':'<a tabindex="0" class="btn btn-success btn-flat btn-sm" data-toggle="popover" data-content="'.$content.'" data-trigger="focus" title="'.$campo.'" data-fecha1="'.$fecha1.'" data-fecha2="'.$fecha2.'">Completo</a>';
   		break;
   		default:
-  			$label = $pdf?'<b style="color:#ccc">Error</b>':'<span class="label label-default">Error</span>';
+  			$label = $pdf?'<span class="label label-default">Error</span>':'<span class="label label-default">Error</span>';
   		break;
   	}
   	return $label;
@@ -139,5 +155,11 @@ class Ciclo extends Model
   public function iteraciones($iteraciones)
   {
   	$this->total_iteracion = $iteraciones;
+  }
+
+  //Limpiar el nombre de la actividad para usarlo en el array $media
+  public function limpiar($campo)
+  {
+  	return strtolower(str_replace('. ','_',$campo));
   }
 }

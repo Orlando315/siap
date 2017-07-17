@@ -28,4 +28,9 @@ class CicloProductor extends Model
   {
   	return $this->hasOne('App\Actividad','ciclo_productor_id','id');
   }
+
+  public function actividades()
+  {
+  	return $this->hasMany('App\Actividad','ciclo_productor_id','id')->get();
+  }
 }

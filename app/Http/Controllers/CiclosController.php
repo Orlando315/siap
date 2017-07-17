@@ -75,7 +75,7 @@ class CiclosController extends Controller
     {
     	$ciclo = Ciclo::findOrFail($id);
     	$productores = $ciclo->productores();
-    	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false]);
+    	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false,'update'=>true]);
     }
 
     /**
@@ -154,18 +154,33 @@ class CiclosController extends Controller
     	$productor_id = $unidad->productor_id;
     	$unidad_id    = $unidad->id;
     	
-    	$x = new CicloProductor;
-    	$repetido = $x->verificarRepetido($ciclo_id,$productor_id,$unidad_id);
+    	$cicloProductor = new CicloProductor;
+    	$repetido = $cicloProductor->verificarRepetido($ciclo_id,$productor_id,$unidad_id);
 
     	if($repetido === 0){    		
 
-	    	$x->ciclo_id     = $ciclo_id;
-	    	$x->productor_id = $productor_id;
-	    	$x->unidad_id    = $unidad_id;
+	    	$cicloProductor->ciclo_id     = $ciclo_id;
+	    	$cicloProductor->productor_id = $productor_id;
+	    	$cicloProductor->unidad_id    = $unidad_id;
 	    	
-	    	if($x->save()){
-	    		$actividad = new Actividad;
-	    		$x->actividad()->save($actividad);
+	    	if($cicloProductor->save()){
+	    		$actividades = [
+				  	'Suelo',
+				  	'Lab. Suelo',
+				  	'Planificacion',
+				  	'Vuelo',
+				  	'Tejido',
+				  	'Lab. Tejido',
+				  	'Esp. Tejido',
+				  	'Procesamiento',
+				  	'Mapa',
+				  	'Attr'
+				  ];
+	    		foreach ($actividades as $key => $value) {
+		    		$actividad = new Actividad;
+		    		$actividad->actividad = $value;
+		    		$cicloProductor->actividad()->save($actividad);	
+	    		}
 
 	    		return redirect('ciclos/'.$ciclo_id)->with([
 	    				'flash_class' => 'alert-success',
@@ -221,7 +236,7 @@ class CiclosController extends Controller
 
     	if($render){
 	    	$productores = $ciclo->selectProductores($request->input('productores'),$request->input('organizacion'));
-	    	return view('partials.box_productores',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>$resumen]);
+	    	return view('partials.box_productores',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>$resumen,'update'=>false]);
 	    }else{
 	    	$p = array('tecnicos'=>array(),
 	    							'organizaciones'=>array(),

@@ -110,6 +110,7 @@
 @section('script')
  	<script type="text/javascript">
 	 	$(document).ready(function(){
+
 	 		$('#ciclo').on('change',function(){
 	 			if($('#ciclo').val() != ""){
 		 			$('.overlay').show();
@@ -219,6 +220,9 @@
 		 				},
 		 				complete: function(){
 		 					$('.overlay').hide();
+							$('[data-toggle="popover"]').popover({
+								html: true
+							});
 		 				}
 		 			});
 	 			}	

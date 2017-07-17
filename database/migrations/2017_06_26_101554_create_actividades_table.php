@@ -17,17 +17,11 @@ class CreateActividadesTable extends Migration
       	$table->increments('id');
       	$table->integer('ciclo_productor_id')->unsigned();
       	$table->foreign('ciclo_productor_id')->references('id')->on('ciclos_productores')->onDelete('cascade');
-      	$table->boolean('suelo')->default(0);
-      	$table->boolean('lab_suelo')->default(0);
-      	$table->boolean('planificacion')->default(0);
-      	$table->boolean('vuelo')->default(0);
-      	$table->boolean('tejido')->default(0);
-      	$table->boolean('lab_tejido')->default(0)->comment('Laboratorio tejido');
-      	$table->boolean('esp_tejido')->default(0)->comment('Especialista tejido');
-      	$table->boolean('procesamiento')->default(0);
-      	$table->boolean('mapa_web')->default(0)->comment('Mapas e indices');
-      	$table->boolean('attr_web')->default(0)->comment('Informe de especialista');
-      	$table->timestamps();
+      	$table->string('actividad');
+      	$table->boolean('status')->default(0);
+      	$table->timestamp('fecha0')->nullable()->comment('Status 0');
+      	$table->timestamp('fecha1')->nullable()->comment('Status 1');
+      	$table->timestamp('fecha2')->nullable()->comment('Status 2');
       });
     }
 

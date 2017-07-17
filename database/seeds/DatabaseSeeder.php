@@ -130,7 +130,44 @@ class DatabaseSeeder extends Seeder
         ]);
 
         App\Actividad::create([
-        	'ciclo_productor_id' =>1
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Suelo'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Lab. Suelo'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Planificacion'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Vuelo'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Tejido'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Lab. Tejido'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Esp. Tejido'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Procesamiento'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Mapa'
+        ]);
+        App\Actividad::create([
+        	'ciclo_productor_id' => 1,
+        	'actividad' => 'Attr.'
         ]);
     }
 }

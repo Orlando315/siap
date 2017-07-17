@@ -14,51 +14,20 @@
 							<h4 style="padding:0;margin:0">{{$u->unidad->unidad}}</h4>
 						</th>
 					</tr>
-					<tr>
-						<th class="text-center th-pdf" width="10%">Suelo</th>
-						<th class="text-center th-pdf" width="10%">Lab. Suelo</th>
-						<th class="text-center th-pdf" width="10%">Planificacion</th>
-						<th class="text-center th-pdf" width="10%">Vuelo</th>
-						<th class="text-center th-pdf" width="10%">Tejido</th>
-						<th class="text-center th-pdf" width="10%">Lab. Tejido</th>
-						<th class="text-center th-pdf" width="10%">Esp. Tejido</th>
-						<th class="text-center th-pdf" width="10%">Procesamiento</th>
-						<th class="text-center th-pdf" width="10%">Mapa</th>
-						<th class="text-center th-pdf" width="10%">Attr.</th>
-					</tr>
+  				<tr>
+  				@foreach($u->actividades() AS $actividad)
+  					<th class="text-center th-pdf" width="10%">{{$actividad->actividad}}</th>
+  				@endforeach
+  				</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->suelo,'suelo',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->lab_suelo,'lab_suelo',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->planificacion,'planificacion',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->vuelo,'vuelo',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->tejido,'tejido',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->lab_tejido,'lab_tejido',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->esp_tejido,'esp_tejido',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->procesamiento,'procesamiento',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->mapa_web,'mapa_web',true)!!}
-						</td>
-						<td class="text-center" style="font-size: 12px !important">
-							{!!$ciclo->valoracion($u->actividad->attr_web,'attr_web',true)!!}
-						</td>
+  				<tr>
+  				@foreach($u->actividades() AS $actividad)
+  					<td class="text-center" style="font-size: 12px !important">
+  						{!!$ciclo->valoracion($actividad->status,$actividad->actividad,true)!!}
+  					</td>
+  				@endforeach
+  				</tr>
 					</tr>
 				</tbody>
 			</table>
@@ -83,7 +52,7 @@
 					<th class="text-center th-pdf" width="10%">Esp. Tejido</th>
 					<th class="text-center th-pdf" width="10%">Procesamiento</th>
 					<th class="text-center th-pdf" width="10%">Mapa</th>
-					<th class="text-center th-pdf" width="10%">Attr.</th>
+					<th class="text-center th-pdf" width="10%">Attr</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -113,10 +82,10 @@
 						{!!$ciclo->promedio('procesamiento',true)!!}
 					</td>
 					<td class="text-center" style="font-size: 12px !important">
-						{!!$ciclo->promedio('mapa_web',true)!!}
+						{!!$ciclo->promedio('mapa',true)!!}
 					</td>
 					<td class="text-center" style="font-size: 12px !important">
-						{!!$ciclo->promedio('attr_web',true)!!}
+						{!!$ciclo->promedio('attr',true)!!}
 					</td>
 				</tr>
 			</tbody>

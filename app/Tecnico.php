@@ -22,4 +22,11 @@ class Tecnico extends Model
   {
   	return $this->hasMany('App\Productor','tecnico_id')->get();
   }
+
+  public function ciclos()
+  {
+  	return $this->hasManyThrough('App\CicloProductor','App\Productor','tecnico_id','id','id')
+  							->groupBy('ciclos_productores.ciclo_id')
+  							->get();
+  }
 }

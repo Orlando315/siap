@@ -76,6 +76,7 @@ class TecnicosController extends Controller
     {
     	$tecnico = Tecnico::findOrFail($id);
     	$productores = $tecnico->productores();
+    	//dd($ciclos);
     	return view('tecnicos.view',['tecnico'=>$tecnico,'productores'=>$productores]);
     }
 

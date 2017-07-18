@@ -93,8 +93,45 @@
 					</div>
         </div>
 			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="box box-success">
+			      <div class="box-header with-border">
+			        <h3 class="box-title"><i class="fa fa-spinner"></i> Ciclos</h3>
+			      </div>
+		      	<div class="box-body">
+							<table class="table data-table table-bordered table-hover table-condensed">
+								<thead>
+									<tr>
+										<th class="text-center">#</th>
+										<th class="text-center">Año</th>
+										<th class="text-center">Ciclo</th>
+										<th class="text-center">Status</th>
+										<th class="text-center">Productores</th>
+										<th class="text-center">Accion</th>
+									</tr>
+								</thead>
+								<tbody class="text-center">
+									@foreach($tecnico->ciclos() as $d)
+										<tr>
+											<td>{{$loop->index+1}}</td>
+											<td>{{$d->ciclo->anio}}</td>
+											<td>{{$d->ciclo->ciclo}}</td>
+											<td>{!! $d->ciclo->status===1?'<span class="label label-success">Abierto</span>':'<span class="label label-danger">Cerrado</span>' !!}</td>
+											<td>{{$d->ciclo->productores_qty()}}</td>
+											<td>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('ciclos.index').'/'.$d->ciclo->id }}"><i class="fa fa-search"></i></a>
+											</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
-	</div>
 
 	<div id="delModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
     <div class="modal-dialog" role="document">
@@ -126,4 +163,5 @@
         </div>
       </div>
     </div>
+  </div>
 @endsection

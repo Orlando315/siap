@@ -8,6 +8,11 @@ class CicloProductor extends Model
 {
   protected $table = 'ciclos_productores';
   protected $fillable = ['ciclo_id','productor_id','unidad_id'];
+
+  public function ciclo()
+  {
+  	return $this->hasOne('App\Ciclo','id');
+  }
   
   //Verificar que la unidad no se encuentre agregada en ese ciclo
   public function verificarRepetido($ciclo,$productor,$unidad){

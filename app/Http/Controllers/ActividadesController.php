@@ -16,9 +16,17 @@ class ActividadesController extends Controller
 		$actividad->status = $status;
 		$campo = "fecha{$status}";
 		$actividad->{$campo} = date('d-m-Y H:i:s');
+
 		switch ($request->input('opt')) {
-			case 1: $msj = "Actividad avanzada correctamente."; break;
-			case -1: $msj = "Actividad atrasada correctamente."; break;
+			case 1:
+				$msj = "Actividad avanzada correctamente.";
+			break;
+			case -1:
+				$msj = "Actividad atrasada correctamente.";
+				$status = $status+1;
+				$campo = "fecha".$status;
+				$actividad->{$campo} = NULL;
+			break;
 		}
 		
 		if($actividad->save()){

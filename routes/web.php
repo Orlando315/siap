@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('/ciclos/add/','CiclosController@add_unidad')->name('ciclos.add_unidad');
 	Route::patch('/ciclos/cerrar/{id}','CiclosController@cerrar')->name('ciclos.cerrar');
 	Route::get('/ciclos/search','CiclosController@search')->name('ciclos.search');
+	Route::get('/ciclos/{id}/{tecnico?}','CiclosController@show')->name('ciclos.tecnico');
 	Route::post('/ciclos/search/{render?}','CiclosController@searchProductores')->name('ciclos.searchProductores');
 	Route::resource('/ciclos','CiclosController');
 	//Unidades
@@ -55,7 +56,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('/reportes/productores','ReportesController@productores')->name('reportes.productores');
 	Route::get('/reportes/productores/{id}','ReportesController@productor')->name('reportes.productor');
 	Route::post('/reportes/ciclo','ReportesController@custom')->name('reportes.customCiclo');
-	Route::get('/reportes/ciclo/{id}','ReportesController@ciclo')->name('reportes.ciclo');
+	Route::get('/reportes/ciclo/{id}/{tecnico?}','ReportesController@ciclo')->name('reportes.ciclo');
 	Route::get('/reportes/organizaciones','ReportesController@organizaciones')->name('reportes.organizaciones');
 	Route::get('/reportes/organizacion/{id}','ReportesController@organizacion')->name('reportes.organizacion');
 

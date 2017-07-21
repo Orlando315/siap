@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Ciclo;
 use App\Unidad;
+use App\Tecnico;
 use App\Actividad;
 use App\Productor;
 use App\Organizacion;
@@ -71,11 +72,21 @@ class CiclosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,$tecnico_id = NULL)
     {
     	$ciclo = Ciclo::findOrFail($id);
-    	$productores = $ciclo->productores();
-    	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false,'update'=>true]);
+    	$tecnico = Tecnico::find($tecnico_id);
+    	$productores = $ciclo->productores(false,false,$tecnico_id);
+
+    	
+    	
+    	$grafico = array_map(
+     	create_function('$c', 'return $c === 1 ? 0 : $c;'),
+     	$produccion->pluck('cant_bultos')->toArray());
+
+    	dd($grafico);
+
+    	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false,'update'=>true,'tecnico'=>$tecnico]);
     }
 
     /**

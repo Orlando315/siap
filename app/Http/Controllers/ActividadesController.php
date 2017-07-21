@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,7 +16,7 @@ class ActividadesController extends Controller
 		$campo = "fecha{$status}";
 		$actividad->{$campo} = date('d-m-Y H:i:s');
 
-		switch ($request->input('opt')) {
+		switch ($request->input('opt')){
 			case 1:
 				$msj = "Actividad avanzada correctamente.";
 			break;
@@ -28,7 +27,7 @@ class ActividadesController extends Controller
 				$actividad->{$campo} = NULL;
 			break;
 		}
-		
+
 		if($actividad->save()){
   		return redirect('ciclos/'.$request->input('ciclo_id'))->with([
   				'flash_class'   => 'alert-success',

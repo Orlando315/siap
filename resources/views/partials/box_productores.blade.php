@@ -4,8 +4,20 @@
   	<div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">
-        	<i class="fa fa-user-circle"></i>{{$d->productor->nombres." ".$d->productor->apellidos}}
-        	<small><a href="{{route('productores.index').'/'.$d->productor_id}}">(Ver detalles)</a></small>
+        	<i class="fa fa-id-card-o"></i>
+        	<a href="{{route('productores.index').'/'.$d->productor_id}}">
+        		{{$d->productor->nombres." ".$d->productor->apellidos}}
+        	</a>
+        	@if(!$tecnico)
+        	&nbsp;&nbsp;|&nbsp;&nbsp;
+        	<i class="fa fa-user-circle"></i>
+        	<a href="{{route('tecnicos.index').'/'.$d->productor->tecnico_id}}">
+        		{{$d->productor->tecnico->nombres." ".$d->productor->tecnico->apellidos}}
+        	</a>
+        	<a href="{{route('ciclos.tecnico',['ciclo'=>$ciclo->id,'tecnico'=>$d->productor->tecnico_id])}}" style="color:#444">
+        		<i class="fa fa-search-plus"></i>	
+        	</a>
+        	@endif
         </h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

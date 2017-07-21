@@ -32,7 +32,7 @@
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Cedula/RIF</b> <span class="pull-right">{{ number_format($tecnico->cedula,0,",",".") }}</span>
+                  <b>Cedula</b> <span class="pull-right">{{ number_format($tecnico->cedula,0,",",".") }}</span>
                 </li>
                 <li class="list-group-item">
                   <b>Email</b> <span class="pull-right">{{ $tecnico->email }}</span>
@@ -56,7 +56,9 @@
 			      <div class="box-header with-border">
 			        <h3 class="box-title"><i class="fa fa-id-card-o "></i> Productores</h3>
 			        <span class="pull-right">
+			        <!--
 			        	<a class="btn btn-flat btn-success" href="{{route('tecnicos.add',['id'=>$tecnico->id])}}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar Tecnico</a>
+			        -->
 			        </span>
 			      </div>
 		      	<div class="box-body">

@@ -33,22 +33,21 @@ class Ciclo extends Model
   							->get();
   }
 
-  public function productores($organizacion = 0, $estado = "")
+  public function productores($organizacion = false, $estado = false,$tecnico = false)
   {
-  	$org = $organizacion > 0;
-  	$est = $estado != "";
-
 		$productores = $this->hasMany('App\CicloProductor','ciclo_id')
 							  				->join('productores','ciclos_productores.productor_id','=','productores.id')
-				                ->when($org, function ($query) use ($organizacion) {
+				                ->when($organizacion, function ($query) use ($organizacion) {
 				                   return $query->where('productores.organizacion_id',$organizacion);
 				                })
-				                ->when($est, function ($query) use ($estado) {
+				                ->when($estado, function ($query) use ($estado) {
 				                   return $query->where('productores.estado',$estado);
+				                })
+				                ->when($tecnico, function ($query) use ($tecnico){
+				                	return $query->where('productores.tecnico_id',$tecnico);
 				                })
 				                ->groupBy('productor_id')
 				                ->get();
-
   	return $productores;
   }
 

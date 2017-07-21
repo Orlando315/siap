@@ -48,12 +48,13 @@ class ReportesController extends Controller
   	return $pdf->download('ciclo-'.$ciclo->ciclo.'.pdf');
 	}
 
-	public function ciclo($id)
+	public function ciclo($id,$tecnico = false)
 	{
 		$ciclo = Ciclo::findOrFail($id);
-  	$productores = $ciclo->productores();
+  	$productores = $ciclo->productores(false,false,$tecnico);
+  	$tecnico = Tecnico::find($tecnico);
 
-		$pdf = PDF::loadView('reportes.ciclo',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false]);
+		$pdf = PDF::loadView('reportes.ciclo',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false,'tecnico'=>$tecnico]);
   	return $pdf->download('ciclo-'.$ciclo->ciclo.'.pdf');
 	}
 

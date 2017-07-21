@@ -10,13 +10,21 @@
 @endsection
 @section('content')
 		<section>
+			@if($tecnico)
+			<a class="btn btn-flat btn-default" href="{{ route('ciclos.show',['ciclo'=>$ciclo->id]) }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+			@else
 	    <a class="btn btn-flat btn-default" href="{{ route('ciclos.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
+	    @endif
 	    @if($ciclo->status===1)
 	    <a class="btn btn-flat btn-success" href="{{ url('ciclos/'.$ciclo->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <a class="btn btn-flat btn-primary" href="{{ url('ciclos/add/'.$ciclo->id) }}"><i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar unidad</a>
 	    <button class="btn btn-flat btn-warning" data-toggle="modal" data-target="#closeModal"><i class="fa fa-calendar-times-o" aria-hidden="true"></i> Cerrar ciclo</button>
 	    @endif
+	    @if($tecnico)
+	    <a class="btn btn-flat btn-default" href="{{ route('reportes.ciclo',['id'=>$ciclo->id,'tecnico'=>$tecnico->id])}}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+	    @else
 	    <a class="btn btn-flat btn-default" href="{{ route('reportes.ciclo',['id'=>$ciclo->id])}}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+	    @endif
 	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 	    -->
@@ -74,6 +82,37 @@
             <!-- /.box-body -->
           </div>
         </div>
+				@if($tecnico)
+				<div class="col-md-3">
+          <!-- Profile Image -->
+          <div class="box box-success">
+            <div class="box-body box-profile">
+              <h3 class="profile-username text-center">{{$tecnico->nombres." ".$tecnico->apellidos}}</h3>
+
+              <p class="text-muted text-center"><a href="{{route('tecnicos.show',['tecnico'=>$tecnico->id])}}"> (Ver detalles)</a> </p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Cedula</b> <span class="pull-right">{{ number_format($tecnico->cedula,0,",",".") }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Email</b> <span class="pull-right">{{ $tecnico->email }}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Telefono pesonal</b> <span class="pull-right">{{$tecnico->tlf_personal?$tecnico->tlf_personal:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Opcional</b> <span class="pull-right">{{$tecnico->tlf_opcional?$tecnico->tlf_opcional:'N/A'}}</span>
+                </li>
+                <li class="list-group-item">
+                  <b>Estado</b> <span class="pull-right">{{$tecnico->estado}}</span>
+                </li>
+              </ul>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        @endif
 			</div>
 			<div class="row">
 				@include('partials.box_productores')

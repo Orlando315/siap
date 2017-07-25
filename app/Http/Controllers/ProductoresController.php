@@ -145,6 +145,27 @@ class ProductoresController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $productor = Productor::findOrFail($id);
+
+      if($productor->unidades_qty()===0){
+      	if($productor->delete()){
+	      	return redirect('productores')->with([
+	      			'flash_class' => 'alert-success',
+	      			'flash_message' => 'Productor eliminado con exito.'
+	      		]);
+	      }else{
+	      	return redirect('productores/'.$id)->with([
+	      			'flash_class' => 'alert-danger',
+	      			'flash_message' => 'Ha ocurrido un error.',
+	      			'flash_important' => true
+	      		]);
+	      }
+      }else{
+      	return redirect('productores/'.$id)->with([
+      			'flash_class' => 'alert-danger',
+      			'flash_message' => 'El Productor tiene unidades registradas.',
+      			'flash_important' => true
+      		]);
+      }
     }
 }

@@ -14,14 +14,15 @@
 	    <a class="btn btn-flat btn-default" href="{{ route('tecnicos.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
 	    <a class="btn btn-flat btn-success" href="{{ url('tecnicos/'.$tecnico->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <a class="btn btn-flat btn-default" href="{{ route('reportes.tecnico',['id'=>$tecnico->id]) }}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
-	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
 		</section>
 
 		<section>
 			<div class="row">
 				<div class="col-md-12">&nbsp;</div>
+				<div class="col-md-12">
+					@include('partials.flash')
+				</div>
 				<div class="col-md-3">
           <!-- Profile Image -->
           <div class="box box-danger">
@@ -75,7 +76,7 @@
 									</tr>
 								</thead>
 								<tbody class="text-center">
-									@foreach($productores as $d)
+									@foreach($tecnico->productores() as $d)
 										<tr>
 											<td>{{$loop->index+1}}</td>
 											<td>{{$d->tipo."-".number_format($d->identificacion,0,",",".")}}</td>
@@ -147,18 +148,10 @@
             <form id="delProduct" class="col-md-8 col-md-offset-2" action="#" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
-              <h4 class="text-center">Esta seguro de eliminar este curso?</h4><br>
-
-              <div class="form-group">
-                <div class="progress" style="display:none">
-                  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                  </div>
-                </div>
-                <div class="alert" style="display:none" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span id="msj"></span></div>
-              </div>
+              <h4 class="text-center">¿Esta seguro de eliminar este Tecnico?</h4><br>
               <center>
-                <button class="btn btn-flat btn-danger" type="submit">Save</button>
-                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
+                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
               </center>
             </form>
           </div>

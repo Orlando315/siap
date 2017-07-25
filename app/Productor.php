@@ -42,7 +42,7 @@ class Productor extends Model
 
   public function unidades_qty()
   {
-  	return $this->hasMany('App\Unidad','productor_id')->count();
+  	return $this->unidades()->count();
   }
 
   public function organizacion()

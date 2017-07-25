@@ -17,7 +17,7 @@ class Unidad extends Model
 
   public function lotes_qty()
   {
-  	return $this->hasMany('App\Lote','unidad_id')->count();
+  	return $this->lotes()->count();
   }
 
   public function productor()

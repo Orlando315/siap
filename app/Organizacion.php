@@ -16,6 +16,6 @@ class Organizacion extends Model
 
   public function productores_qty()
   {
-  	return $this->hasMany('App\Productor','organizacion_id')->get()->count();
+  	return $this->productores()->count();
   }
 }

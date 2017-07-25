@@ -23,9 +23,14 @@ class Tecnico extends Model
   	return $this->hasMany('App\Productor','tecnico_id')->get();
   }
 
+  public function productores_qty()
+  {
+  	return $this->productores()->count();
+  }
+
   public function ciclos()
   {
-  	return $this->hasManyThrough('App\CicloProductor','App\Productor','tecnico_id','id','id')
+  	return $this->hasManyThrough('App\CicloProductor','App\Productor','tecnico_id','productor_id','id')
   							->groupBy('ciclos_productores.ciclo_id')
   							->get();
   }

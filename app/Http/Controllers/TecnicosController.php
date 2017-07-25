@@ -75,9 +75,7 @@ class TecnicosController extends Controller
     public function show($id)
     {
     	$tecnico = Tecnico::findOrFail($id);
-    	$productores = $tecnico->productores();
-    	//dd($ciclos);
-    	return view('tecnicos.view',['tecnico'=>$tecnico,'productores'=>$productores]);
+    	return view('tecnicos.view',['tecnico'=>$tecnico]);
     }
 
     /**
@@ -136,7 +134,27 @@ class TecnicosController extends Controller
      */
     public function destroy($id)
     {
-      
+      $tecnico = Tecnico::findOrFail($id);
+      if($tecnico->productores_qty()===0){
+      	if($tecnico->delete()){
+	      	return redirect('tecnicos')->with([
+	      			'flash_class' => 'alert-success',
+	      			'flash_message' => 'Tecnico eliminado con exito.'
+	      		]);
+	      }else{
+	      	return redirect('tecnicos/'.$id)->with([
+	      			'flash_class' => 'alert-danger',
+	      			'flash_message' => 'Ha ocurrido un error.',
+	      			'flash_important' => true
+	      		]);
+	      }
+      }else{
+      	return redirect('tecnicos/'.$id)->with([
+      			'flash_class' => 'alert-danger',
+      			'flash_message' => 'El Tecnico tiene productores registrados.',
+      			'flash_important' => true
+      		]);
+      }
     }
 
     public function add($id)

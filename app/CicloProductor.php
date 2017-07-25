@@ -10,7 +10,7 @@ class CicloProductor extends Model
 
   public function ciclo()
   {
-  	return $this->hasOne('App\Ciclo','id');
+  	return $this->belongsTo('App\Ciclo','ciclo_id');
   }
   
   //Verificar que la unidad no se encuentre agregada en ese ciclo

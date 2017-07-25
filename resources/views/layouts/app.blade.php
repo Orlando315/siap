@@ -36,6 +36,9 @@
 			.table-condensed tbody>tr>td{
 				padding: 5px 0;
 			}
+			.btn-arrows .btn-default.btn-xs{
+				padding: 0 3px !important;
+			}
 	  </style>
   </head>
 

@@ -78,14 +78,6 @@ class CiclosController extends Controller
     	$tecnico = Tecnico::find($tecnico_id);
     	$productores = $ciclo->productores(false,false,$tecnico_id);
 
-    	
-    	
-    	$grafico = array_map(
-     	create_function('$c', 'return $c === 1 ? 0 : $c;'),
-     	$produccion->pluck('cant_bultos')->toArray());
-
-    	dd($grafico);
-
     	return view('ciclos.view',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>false,'update'=>true,'tecnico'=>$tecnico]);
     }
 

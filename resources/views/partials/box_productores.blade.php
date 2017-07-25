@@ -14,6 +14,7 @@
         	<a href="{{route('tecnicos.index').'/'.$d->productor->tecnico_id}}">
         		{{$d->productor->tecnico->nombres." ".$d->productor->tecnico->apellidos}}
         	</a>
+        	&nbsp;&nbsp;
         	<a href="{{route('ciclos.tecnico',['ciclo'=>$ciclo->id,'tecnico'=>$d->productor->tecnico_id])}}" style="color:#444">
         		<i class="fa fa-search-plus"></i>	
         	</a>
@@ -48,7 +49,7 @@
       			<tbody>
       				<tr>
       				@foreach($u->actividades() AS $actividad)
-      					<td class="text-center">
+      					<td class="text-center btn-arrows">
       						@if($ciclo->status===1 AND $update === true)
       							{!!$actividad->status>0?'<button class="btn btn-default btn-xs" data-toggle="modal" data-target="#estModal" data-campo="'.$actividad->actividad.'" data-id="'.$actividad->id.'" data-opt="-1"><i class="fa fa-caret-square-o-left"></i></button>':''!!}
       						@endif

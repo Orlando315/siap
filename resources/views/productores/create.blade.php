@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="form-group {{ $errors->has('tipo')?'has-error':'' }}">
-						<label class="control-label" for="tipo">Tipo: *</label>
+						<label class="control-label" for="tipo">Documento tipo: *</label>
 						<select id="tipo" name="tipo" class="form-control">
 							<option value="">Seleccione...</option>
 							<option value="V" @if(old('tipo')) {{ old('tipo')==='V'?'selected':''}} @endif >V</option>

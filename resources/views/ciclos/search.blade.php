@@ -36,7 +36,7 @@
 					        	<div class="form-group">
 											<label class="control-label" for="ciclo">Ciclo: *</label>
 											<select id="ciclo" class="form-control" name="ciclo" required>
-												<option value="">Seleccion...</option>
+												<option value="" selected>Seleccion...</option>
 												@foreach($ciclos AS $d)
 													<option value="{{$d->id}}">{{$d->anio." | ".$d->ciclo}}</option>
 												@endforeach
@@ -155,51 +155,14 @@
 		 				}
 		 			});
 		 		}else{
-		 			$('#organizacion,#estado,#buscar,#imprimir').prop('disabled',true);
-		 			$('#organizacion,#estado,#productores').empty();
-		 			$('#estado').html('<option value="" name="estado">Seleccione...</option>');
-		 			$('#organizacion').html('<option value="" name="organizacion">Seleccione...</option>');
+		 			$('#tecnico,#organizacion,#estado,#buscar,#imprimir').prop('disabled',true);
+		 			$('#tecnico,#organizacion,#estado,#productores').empty();
+		 			$('#tecnico,#organizacion,#estado').html('<option value="">Seleccione...</option>');
 		 		}
 	 		});
 
-	 		$('#organizacion').on('change',function(){
-	 			if($('#ciclo').val() != ""){
-		 			$('.overlay').show();
-		 			var form = $('#form-search');
-		 			$.ajax({
-		 				type: 'POST',
-		 				cache: false,
-		 				url: "{{route('ciclos.searchProductores')}}",
-		 				data: form.serialize(),
-		 				dataType: 'JSON',
-		 				success: function(r){
-		 					cargar_productores(r.productores);
-		 				},
-		 				complete: function(){
-		 					$('.overlay').hide();
-		 				}
-		 			});
-		 		}
-	 		});
-
-	 		$('#estado').on('change',function(){
-	 			if($('#ciclo').val() != ""){
-		 			$('.overlay').show();
-		 			var form = $('#form-search');
-		 			$.ajax({
-		 				type: 'POST',
-		 				cache: false,
-		 				url: "{{route('ciclos.searchProductores')}}",
-		 				data: form.serialize(),
-		 				dataType: 'JSON',
-		 				success: function(r){
-		 					cargar_productores(r.productores);
-		 				},
-		 				complete: function(){
-		 					$('.overlay').hide();
-		 				}
-		 			});
-		 		}
+	 		$('#estado,#organizacion,#tecnico').on('change',function(){
+	 			consulta();
 	 		});
 
 	 		$('#buscar').on('click',function(e){
@@ -238,6 +201,26 @@
 		 		}
 	 		});
 	 	});
+
+	function consulta(){
+		if($('#ciclo').val() != ""){
+ 			$('.overlay').show();
+ 			var form = $('#form-search');
+ 			$.ajax({
+ 				type: 'POST',
+ 				cache: false,
+ 				url: "{{route('ciclos.searchProductores')}}",
+ 				data: form.serialize(),
+ 				dataType: 'JSON',
+ 				success: function(r){
+ 					cargar_productores(r.productores);
+ 				},
+ 				complete: function(){
+ 					$('.overlay').hide();
+ 				}
+ 			});
+ 		}
+	}
 
 		function cargar_productores(productores){
 			$('#productores').empty();

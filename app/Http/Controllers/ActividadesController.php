@@ -11,6 +11,8 @@ class ActividadesController extends Controller
 	{
 		$actividad = Actividad::findOrFail($request->actividad_id);
 
+		$productor = $actividad->productor->productor_id;
+		//dd($productor);
 		$status = $actividad->status + $request->input('opt');
 		$actividad->status = $status;
 		$campo = "fecha{$status}";
@@ -29,7 +31,7 @@ class ActividadesController extends Controller
 		}
 
 		if($actividad->save()){
-  		return redirect('ciclos/'.$request->input('ciclo_id'))->with([
+  		return redirect('ciclos/'.$request->input('ciclo_id').'#prod-'.$productor)->with([
   				'flash_class'   => 'alert-success',
   				'flash_message' => $msj
   			]);

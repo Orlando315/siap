@@ -15,4 +15,8 @@ class Actividad extends Model
   	'fecha1',
   	'fecha2'
   ];
+
+  public function productor(){
+  	return $this->belongsTo('App\CicloProductor','ciclo_productor_id','id');
+  }
 }

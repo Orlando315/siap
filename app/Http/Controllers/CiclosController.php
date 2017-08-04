@@ -238,8 +238,8 @@ class CiclosController extends Controller
     	$resumen = $request->input('resumen')?true:false;
 
     	if($render){
-	    	$productores = $ciclo->selectProductores($request->input('productores'),$request->input('organizacion'));
-	    	return view('partials.box_productores',['ciclo'=>$ciclo,'productores'=>$productores,'resumen'=>$resumen,'update'=>false]);
+	    	$productores = $ciclo->selectProductores($request->input('productores'),$request->input('organizacion'),$request->input('tecnico'));
+	    	return view('partials.box_productores',['ciclo'=>$ciclo,'productores'=>$productores,'tecnico'=>false,'resumen'=>$resumen,'update'=>false]);
 	    }else{
 	    	$p = array('tecnicos'=>array(),
 	    							'organizaciones'=>array(),

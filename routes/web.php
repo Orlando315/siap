@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('/ciclos/add/','CiclosController@add_unidad')->name('ciclos.add_unidad');
 	Route::patch('/ciclos/cerrar/{id}','CiclosController@cerrar')->name('ciclos.cerrar');
 	Route::get('/ciclos/search','CiclosController@search')->name('ciclos.search');
-	Route::get('/ciclos/{id}/{tecnico?}','CiclosController@show')->name('ciclos.tecnico');
+	Route::get('/ciclos/{id}/tecnico/{tecnico?}','CiclosController@show')->name('ciclos.tecnico');
 	Route::post('/ciclos/search/{render?}','CiclosController@searchProductores')->name('ciclos.searchProductores');
 	Route::resource('/ciclos','CiclosController');
 	//Unidades

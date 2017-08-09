@@ -25,9 +25,7 @@
 	    @else
 	    <a class="btn btn-flat btn-default" href="{{ route('reportes.ciclo',['id'=>$ciclo->id])}}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 	    @endif
-	    <!--
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
-	    -->
 		</section>
 
 		<section>
@@ -161,6 +159,30 @@
 	              <h4 class="text-center">¿Esta seguro que desea <b><span id="msj"></span></b> esta actividad?</h4><br>
 	              <center>
 	                <button class="btn btn-flat btn-danger" type="submit">Aceptar</button>
+	                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
+	              </center>
+	            </form>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+
+		<div id="delModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delModalLabel">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	          <h4 class="modal-title" id="delModalLabel">Eliminar Ciclo</h4>
+	        </div>
+	        <div class="modal-body">
+	          <div class="row">
+	            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{route('ciclos.destroy',[$ciclo->id])}}" method="POST">
+	              <input type="hidden" name="_method" value="DELETE">
+	              {{ csrf_field() }}
+	              <h4 class="text-center">¿Esta seguro de eliminar este ciclo?</h4><br>
+	              <center>
+	                <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
 	                <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
 	              </center>
 	            </form>

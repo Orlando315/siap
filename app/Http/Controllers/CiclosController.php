@@ -134,7 +134,28 @@ class CiclosController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $ciclo = Ciclo::FindOrFail($id);
+
+      if($ciclo->unidades_qty()===0){
+      	if($ciclo->delete()){
+      		return redirect("ciclos")->with([
+      		'flash_class' => 'alert-success',
+      		'flash_message'=>'Ciclo eliminado.',
+      		]);
+      	}else{
+      		return redirect("ciclos")->with([
+      		'flash_class' => 'alert-danger',
+      		'flash_message'=>'Ha ocurrido un error.',
+      		'flash_important' => false
+      		]);
+      	}
+      }else{
+      	return redirect("ciclos/{$id}")->with([
+      		'flash_class' => 'alert-danger',
+      		'flash_message'=>'Este ciclo tiene unidades registradas.',
+      		'flash_important' => true
+      		]);
+      }
     }
 
     public function add($id)

@@ -128,6 +128,12 @@
             </li>
 
             <li>
+            	<a href="{{ route('planificaciones.index') }}">
+            		<i class="fa fa-arrows"></i> <span>Planificaciones</span>
+            	</a>
+            </li>
+
+            <li>
             	<a href="{{ route('organizaciones.index') }}">
             		<i class="fa fa-building"></i> <span>Organizaciones</span>
             	</a>

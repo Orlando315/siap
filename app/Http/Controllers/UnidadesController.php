@@ -156,4 +156,11 @@ class UnidadesController extends Controller
       		]);
       }
     }
+
+    public function search(Request $request)
+    {
+    	$unidades = Unidad::select('id','unidad')->where('productor_id',$request->productor_id)->get()->toArray();
+
+    	return response()->json($unidades);
+    }
 }

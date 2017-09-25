@@ -167,7 +167,7 @@ class DatabaseSeeder extends Seeder
         ]);
         App\Actividad::create([
         	'ciclo_productor_id' => 1,
-        	'actividad' => 'Attr.'
+        	'actividad' => 'Attr'
         ]);
     }
 }

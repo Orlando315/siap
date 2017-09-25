@@ -86,4 +86,11 @@ class LotesController extends Controller
 				]);
 		}
 	}
+
+	public function search(Request $request)
+	{
+		$lotes = Lote::select('id','lote','nombre')->where('unidad_id',$request->unidad)->get()->toArray();
+
+		return response()->json($lotes);
+	}
 }

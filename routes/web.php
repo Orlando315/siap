@@ -40,15 +40,20 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('/ciclos/search/{render?}','CiclosController@searchProductores')->name('ciclos.searchProductores');
 	Route::resource('/ciclos','CiclosController');
 	//Unidades
+	Route::post('/unidades/search','UnidadesController@search')->name('unidades.search');
 	Route::get('/unidades/create/{id}','UnidadesController@create');
 	Route::resource('/unidades','UnidadesController');
 	//lotes
+	Route::post('/lotes/search','LotesController@search')->name('lotes.search');
 	Route::get('/lotes/create/{id}','LotesController@create');
 	Route::resource('/lotes','LotesController');
 	//Actividad
 	Route::patch('/actividad','ActividadesController@avanzar')->name('actividad.avanzar');
 	//Organizaciones
 	Route::resource('/organizaciones','OrganizacionesController');
+	//Planificaciones
+	Route::post('/planificaciones/search','PlanificacionesController@search')->name('planificaciones.search');
+	Route::resource('/planificaciones','PlanificacionesController');
 
 	//Reportes
 	Route::get('/reportes/tecnicos','ReportesController@tecnicos')->name('reportes.tecnicos');

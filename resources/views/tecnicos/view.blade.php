@@ -4,15 +4,16 @@
 @section('breadcrumb')
 	<ol class="breadcrumb">
 	  <li><a href="{{route('index')}}"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a></li>
+
 	  <li> <a href="{{route('tecnicos.index')}}">Tecnicos </a> </li>
 	  <li class="active">Ver </li>
 	</ol>
 @endsection
 @section('content')
-<!-- Formulario -->
+	<!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('tecnicos.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('tecnicos/'.$tecnico->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-success" href="{{ route('tecnicos.edit',['id'=>$tecnico->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <a class="btn btn-flat btn-default" href="{{ route('reportes.tecnico',['id'=>$tecnico->id]) }}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 		</section>
@@ -85,8 +86,7 @@
 											<td>{{$d->email}}</td>
 											<td>{{$d->tlf_personal}}</td>
 											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('productores.index').'/'.$d->id }}"><i class="fa fa-search"></i></a>
-												<a href="{{ url('productores/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('productores.index').'/'.$d->id }}" title="Ver"><i class="fa fa-search"></i></a>
 											</td>
 										</tr>
 									@endforeach
@@ -124,7 +124,7 @@
 											<td>{!! $d->ciclo->status===1?'<span class="label label-success">Abierto</span>':'<span class="label label-danger">Cerrado</span>' !!}</td>
 											<td>{{$d->ciclo->productores_qty()}}</td>
 											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('ciclos.index').'/'.$d->ciclo->id }}"><i class="fa fa-search"></i></a>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('ciclos.show',[$d->ciclo->id]) }}"><i class="fa fa-search"></i></a>
 											</td>
 										</tr>
 									@endforeach
@@ -145,7 +145,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="#" method="POST">
+            <form class="col-md-8 col-md-offset-2" action="{{route('tecnicos.destroy',['id'=>$tecnico->id])}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
               <h4 class="text-center">¿Esta seguro de eliminar este Tecnico?</h4><br>

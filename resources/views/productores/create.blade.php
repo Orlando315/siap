@@ -12,7 +12,7 @@
 		<!-- Formulario -->
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				<form class="" action="{{ url('productores') }}" method="POST" enctype="multipart/form-data">
+				<form class="" action="{{ route('productores.index') }}" method="POST">
 					{{ method_field('POST') }}
 					{{ csrf_field() }}
 					<h4>Agregar productor</h4>

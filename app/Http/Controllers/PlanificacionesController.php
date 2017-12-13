@@ -50,7 +50,8 @@ class PlanificacionesController extends Controller
       $planificacion = new Planificacion;
       $planificacion->fill($request->all());
       $planificacion->lote_id = $request->lote;
-      $planificacion->fecha_vm = $request->fecha_vuelo;
+      $planificacion->fecha_siembra = date('Y-m-d',strtotime($request->fecha_siembra));
+      $planificacion->fecha_vm = date('Y-m-d',strtotime($request->fecha_vuelo));
 
       if($planificacion->save()){
       	return redirect('/planificaciones')->with([
@@ -74,7 +75,8 @@ class PlanificacionesController extends Controller
      */
     public function show($id)
     {
-        //
+    	$planificacion = Planificacion::findOrFail($id);
+      return view('planificaciones.view',['planificacion'=>$planificacion]);
     }
 
     /**
@@ -85,7 +87,8 @@ class PlanificacionesController extends Controller
      */
     public function edit($id)
     {
-        //
+      $planificacion = Planificacion::findOrFail($id);
+      return view('planificaciones.edit',['planificacion'=>$planificacion]);
     }
 
     /**
@@ -97,7 +100,30 @@ class PlanificacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $planificacion = Planificacion::findOrFail($id);
+
+      $this->validate($request,[
+      	'productor_id' => 'required|numeric',
+      	'lote' => 'required|numeric',
+      	'fecha_siembra' => 'required',
+      	'superficie' => 'nullable|numeric',
+      	'fecha_vm' => 'requried',
+      	'sup_planeada' => 'nullable|numeric'
+      ]);
+      $planificacion->fill($request->all());
+
+      if($planificacion->save()){
+      	return redirect('/planificaciones')->with([
+      		'flash_class'     => 'alert-success',
+      		'flash_message'   => 'Planificacion actualizada con exito.'
+      	]);
+      }else{
+      	return redirect('/planificaciones')->with([
+      		'flash_class'     => 'alert-danger',
+      		'flash_message'   => 'Ha ocurrido un error.',
+      		'flash_important' => true
+      	]);
+      }
     }
 
     /**
@@ -108,7 +134,20 @@ class PlanificacionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $planificacion = Planificacion::findOrFail($id);
+
+      if($planificacion->destroy()){
+      	return redirect('/planificaciones')->with([
+      		'flash_class'     => 'alert-success',
+      		'flash_message'   => 'Planificacion eliminada con exito.'
+      	]);
+      }else{
+      	return redirect('/planificaciones')->with([
+      		'flash_class'     => 'alert-danger',
+      		'flash_message'   => 'Ha ocurrido un error',
+      		'flash_important' => true
+      	]);
+      }
     }
 
     public function search(Request $request)

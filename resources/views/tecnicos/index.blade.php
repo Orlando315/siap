@@ -57,8 +57,8 @@
 									<td>{{$d->email}}</td>
 									<td>{{$d->tlf_personal}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('tecnicos.index').'/'.$d->id }}"><i class="fa fa-search"></i></a>
-										<a href="{{ url('tecnicos/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('tecnicos.show',[$d->id]) }}" title="Ver"><i class="fa fa-search"></i></a>
+										<a class="btn btn-flat btn-success btn-sm" href="{{ route('tecnicos.edit',[$d->id]) }}" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 							@endforeach

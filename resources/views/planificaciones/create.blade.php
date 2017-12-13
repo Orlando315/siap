@@ -40,7 +40,10 @@
 
 				<div class="form-group {{$errors->has('fecha_siembra')?'has-error':''}}"">
 					<label class="control-label" for="fecha_siembra">Fecha de siembra: *</label>
-					<input id="fecha_siembra" type="text" class="form-control" name="fecha_siembra" required>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+						<input id="fecha_siembra" type="text" class="form-control" name="fecha_siembra" style="width:100px" required>
+					</div>
 				</div>
 
 				<div class="form-group {{$errors->has('variacion')?'has-error':''}}"">
@@ -95,6 +98,7 @@
 @section('script')
 	<script type="text/javascript">
 		$(document).ready(function(){
+
 			$('#fecha_siembra').datepicker({
 				autoclose: true,
   			format: "dd-mm-yyyy",
@@ -159,7 +163,11 @@
 					}
 				});
 			});
-	  });
+			
+
+			$('#productor_id').change();
+
+	  });//
 
 	</script>
 @endsection

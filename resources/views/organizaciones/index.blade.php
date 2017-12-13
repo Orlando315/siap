@@ -51,8 +51,8 @@
 									<td>{{$d->organizacion}}</td>
 									<td>{{$d->productores_qty()}}</td>
 									<td>
-										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('organizaciones.index').'/'.$d->id }}"><i class="fa fa-search"></i></a>
-										<a href="{{ url('organizaciones/'.$d->id.'/edit') }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
+										<a class="btn btn-primary btn-flat btn-sm" href="{{ route('organizaciones.show',['organziacion'=>$d->id]) }}"><i class="fa fa-search"></i></a>
+										<a href="{{ route('organizaciones.edit',['organizacion'=>$d->id]) }}" class="btn btn-flat btn-success btn-sm" title="Editar"><i class="fa fa-edit"></i></a>
 									</td>
 								</tr>
 							@endforeach

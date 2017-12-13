@@ -12,7 +12,7 @@
 <!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('productores.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('productores/'.$productor->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-success" href="{{ route('productores.edit',[$productor->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <a class="btn btn-flat btn-default" href="{{ route('reportes.productor',['id'=>$productor->id]) }}"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 		</section>
@@ -115,7 +115,7 @@
 											<td>{{$d->ubicacion}}</td>
 											<td>{{$d->lotes_qty()}}</td>
 											<td>
-												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('unidades.index').'/'.$d->id }}"><i class="fa fa-search"></i></a>
+												<a class="btn btn-primary btn-flat btn-sm" href="{{ route('unidades.show',[$d->id]) }}"><i class="fa fa-search"></i></a>
 											</td>
 										</tr>
 									@endforeach
@@ -137,7 +137,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{route('productores.destroy',[$productor->id])}}" method="POST">
+            <form class="col-md-8 col-md-offset-2" action="{{route('productores.destroy',[$productor->id])}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
               <h4 class="text-center">¿Esta seguro de eliminar este productor?</h4><br>

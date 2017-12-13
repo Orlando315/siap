@@ -18,17 +18,17 @@
 					<h4>Agregar Usuario</h4>
 					<div class="form-group {{ $errors->has('nombres')?'has-error':'' }}">
 						<label class="control-label" for="nombres">nombre: *</label>
-						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):'' }}" placeholder="Nombre">
+						<input id="nombres" class="form-control" type="text" name="nombres" value="{{ old('nombres')?old('nombres'):'' }}" placeholder="Nombre" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('apellidos')?'has-error':'' }}">
 						<label class="control-label" for="apellidos">Apellido: *</label>
-						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):'' }}" placeholder="Apellido">
+						<input id="apellidos" class="form-control" type="text" name="apellidos" value="{{ old('apellidos')?old('apellidos'):'' }}" placeholder="Apellido" required>
 					</div>
 					
 					<div class="form-group {{ $errors->has('email')?'has-error':'' }}">
 						<label class="control-label" for="email">Email: *</label>
-						<input id="email" class="form-control" type="mail" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email">
+						<input id="email" class="form-control" type="mail" name="email" value="{{ old('email')?old('email'):'' }}" placeholder="Email" required>
 					</div>
 					<!--
 					<div class="form-group {{ $errors->has('cedula')?'has-error':'' }}">
@@ -48,25 +48,25 @@
 					-->
 					<div class="form-group {{ $errors->has('password')?'has-error':'' }}">
 						<label class="control-label" for="password">Contraseña: *</label>
-						<input id="password" class="form-control" type="password" name="password" value="{{ old('password')?old('password'):'' }}">
+						<input id="password" class="form-control" type="password" name="password" required>
 					</div>
 
 					<div class="form-group {{ $errors->has('password_confirmation')?'has-error':'' }}">
 						<label class="control-label" for="password_confirmation">Verificar: *</label>
-						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" value="{{ old('password_confirmation')?old('password_confirmation'):'' }}">
+						<input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required>
 					</div>
 
 					@if (count($errors) > 0)
 	          <div class="alert alert-danger alert-important">
-	          <ul>
-	            @foreach($errors->all() as $error)
-	               <li>{{$error}}</li>
-	             @endforeach
-	           </ul>  
+		          <ul>
+		            @foreach($errors->all() as $error)
+		              <li>{{$error}}</li>
+		            @endforeach
+		          </ul>  
 	          </div>
 	        @endif
 
-					<div class="form-group text-right">
+					<div class="form-group">
 						<a class="btn btn-flat btn-default" href="{{route('users.index')}}"><i class="fa fa-reply"></i> Atras</a>
 						<button class="btn btn-flat btn-primary" type="submit"><i class="fa fa-send"></i> Guardar</button>
 					</div>

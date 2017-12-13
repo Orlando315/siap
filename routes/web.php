@@ -50,6 +50,9 @@ Route::group(['middleware' => 'auth'],function(){
 	//Actividad
 	Route::patch('/actividad','ActividadesController@avanzar')->name('actividad.avanzar');
 	//Organizaciones
+	Route::get('/organizaciones/add/{id}','OrganizacionesController@add')->name('organizaciones.add');
+	Route::post('/organizaciones/add/','OrganizacionesController@add_productor')->name('organizaciones.add_productor');
+	Route::patch('/organizaciones/sacar/','OrganizacionesController@sacar')->name('organizaciones.sacar');
 	Route::resource('/organizaciones','OrganizacionesController');
 	//Planificaciones
 	Route::post('/planificaciones/search','PlanificacionesController@search')->name('planificaciones.search');

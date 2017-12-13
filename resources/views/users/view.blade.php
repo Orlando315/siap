@@ -12,7 +12,7 @@
 <!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('users.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('users/'.$user->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-success" href="{{ route('users.edit',[$user->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 		</section>
 
@@ -32,7 +32,6 @@
 					<p><b>Apellidos: </b> {{ $user->apellidos }} </p>
           <p><b>Email: </b> {{ $user->email }} </p>
 				</div>
-			
 			</div>
 		</section>
 	</div>
@@ -46,7 +45,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{ url('users/'.$user->id) }}" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{ route('users.destroy',[$user->id]) }}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
               <h4 class="text-center">¿Esta seguro de eliminar este usuario?</h4><br>
@@ -58,6 +57,7 @@
                 </div>
                 <div class="alert" style="display:none" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<span id="msj"></span></div>
               </div>
+
               <center>
                 <button class="btn btn-flat btn-danger" type="submit">Eliminar</button>
                 <button type="button" class="btn btn-flat btn-default" data-dismiss="modal">Cerrar</button>
@@ -67,4 +67,5 @@
         </div>
       </div>
     </div>
+  </div>
 @endsection

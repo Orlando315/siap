@@ -12,7 +12,7 @@
 <!-- Formulario -->
 		<section>
 	    <a class="btn btn-flat btn-default" href="{{ route('unidades.index') }}"><i class="fa fa-reply" aria-hidden="true"></i> Volver</a>
-	    <a class="btn btn-flat btn-success" href="{{ url('unidades/'.$unidad->id.'/edit') }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
+	    <a class="btn btn-flat btn-success" href="{{ route('unidades.edit',[$unidad->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Editar</a>
 	    <button class="btn btn-flat btn-danger" data-toggle="modal" data-target="#delModal"><i class="fa fa-times" aria-hidden="true"></i> Eliminar</button>
 		</section>
 		
@@ -28,7 +28,7 @@
             <div class="box-body box-profile">
               <h3 class="profile-username text-center">{{$unidad->productor->nombres." ".$unidad->productor->apellidos}}</h3>
 
-              <p class="text-muted text-center"><a href="{{route('productores.index').'/'.$unidad->productor->id}}">(Ver productor) </a></p>
+              <p class="text-muted text-center"><a href="{{route('productores.show',[$unidad->productor->id])}}">(Ver productor) </a></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -70,7 +70,7 @@
 											<td>{{$d->lote}}</td>
 											<td>{{$d->nombre}}</td>
 											<td>
-												<a class="btn btn-sm btn-flat btn-success" href="{{route('lotes.index').'/'.$d->id.'/edit'}}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+												<a class="btn btn-sm btn-flat btn-success" href="{{route('lotes.edit',[$d->id])}}"><i class="fa fa-edit" aria-hidden="true"></i></a>
 												<button class="btn btn-sm btn-flat btn-danger" data-toggle="modal"  data-target="#delLoteModal" data-id="{{$d->id}}"><i class="fa fa-times" aria-hidden="true"></i></button>
 											</td>
 										</tr>
@@ -93,7 +93,7 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{route('unidades.index').'/'.$unidad->id}}" method="POST">
+            <form id="delProduct" class="col-md-8 col-md-offset-2" action="{{route('unidades.destroy',[$unidad->id])}}" method="POST">
               <input type="hidden" name="_method" value="DELETE">
               {{ csrf_field() }}
               <h4 class="text-center">¿Esta seguro de eliminar esta unidad?</h4><br>
@@ -107,7 +107,6 @@
       </div>
     </div>
   </div>
-
 
 
 	<div id="delLoteModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="delLoteModalLabel">

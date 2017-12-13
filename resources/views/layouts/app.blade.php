@@ -48,7 +48,7 @@
         <!-- Logo -->
         <a href="{{route('login')}}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><img class="img-responsive" src="{{ asset('images/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 10px"></span>
+          <span class="logo-mini"><img class="img-responsive" src="{{ asset('images/logo.png') }}" alt="Logo" style="height:30px;margin:10px 0 0 0"></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg">
             <b style="font-size: 18px">

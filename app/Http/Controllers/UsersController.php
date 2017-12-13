@@ -42,8 +42,7 @@ class UsersController extends Controller
           'nombres' => 'required',
           'apellidos' => 'required',
           'email' =>'required|email|unique:users',
-          'password' => 'required|min:6|max:15|confirmed',
-          'password_confirmation' => 'required|min:6|max:15|same:password'
+          'password' => 'required|min:6|confirmed',
           ]);
 
         $user = new User;
@@ -102,9 +101,7 @@ class UsersController extends Controller
         $this->validate($request, [
           'nombres' => 'required',
           'apellidos' => 'required',
-          'email' =>'required|email|unique:users,email,'.$user->email.",id",
-          'password' => 'required|min:6|max:15|confirmed',
-          'password_confirmation' => 'required|min:6|max:15|same:password'
+          'email' =>'required|email|unique:users,email,'.$user->id.',id'
           ]);
 
         $user->fill($request->all());
@@ -157,7 +154,7 @@ class UsersController extends Controller
     }
 
     public function perfil(){
-    	$perfil = User::findOrFail(Auth::user()->id);
+    	$perfil = Auth::user();
     	return view('perfil',['perfil'=>$perfil]);
     }
 
@@ -169,16 +166,16 @@ class UsersController extends Controller
         'nombres' => 'required',
         'apellidos' => 'required',
         'email' =>'required|email|unique:users,email,'.$user->id.',id'
-        ]);
+      ]);
+
+    	$user->fill($request->all());
+
       if($request->input('checkbox') === "Yes"){
       	$this->validate($request,[
-          'password' => 'required|min:6|max:15|confirmed',
-          'password_confirmation' => 'required|min:6|max:15|same:password'
+          'password' => 'required|min:6|confirmed',
     		]);
   			$user->password = bcrypt($request->input('password'));
       }
-
-    	$user->fill($request->all());
 
     	if($user->save()){
         return redirect("perfil")->with([
